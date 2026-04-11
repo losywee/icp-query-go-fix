@@ -1,6 +1,8 @@
 # ICP备案查询工具 (Go)
 
-纯 Go 实现的工信部 ICP 备案查询工具，支持域名、App、小程序、快应用的备案查询与违规查询。支持 CLI / Web UI / MCP Server 三种运行模式。
+纯 Go 实现的工信部 ICP 备案查询工具，支持域名、App、小程序、快应用的备案查询与违规查询。
+
+原生支持 AI 集成：内置 MCP Server 可被 Claude、Cursor 等 AI Agent 直接调用，附带 Claude Code Skill 实现开箱即用的智能备案查询体验。
 
 Inspired by [ICP_Query](https://github.com/HG-ha/ICP_Query)（Python 版）。
 
@@ -9,12 +11,17 @@ Inspired by [ICP_Query](https://github.com/HG-ha/ICP_Query)（Python 版）。
 - 单条/批量 ICP 备案查询
 - 违规域名、App、小程序、快应用查询
 - Web UI 界面，支持查询历史与 Excel/JSON 导出
-- MCP Server 模式，AI Agent 可直接调用
+- **MCP Server** — AI Agent 可直接调用备案查询能力
+- **Claude Code Skill** — 内置 Skill 文件，配置即用
 - 代理池支持（本地 IPv6 / 隧道代理 / API 提取）
 - 自动验证码识别与重试
 - 纯 Go 实现，跨平台编译
 
 ## 安装
+
+### 从 GitHub Release 下载
+
+前往 [Releases](https://github.com/imxw/icp-query-go/releases) 下载对应平台的压缩包，解压后将 `icpcli` 放入 PATH 即可。
 
 ### 从源码编译
 
