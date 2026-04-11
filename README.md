@@ -6,6 +6,13 @@
 
 Inspired by [ICP_Query](https://github.com/HG-ha/ICP_Query)（Python 版）。
 
+## 效果展示
+<img width="696" height="754" alt="image" src="https://github.com/user-attachments/assets/179bce32-9272-495c-8c56-d3e79c9cb4b5" />
+<img width="1341" height="764" alt="image" src="https://github.com/user-attachments/assets/3132d9ad-b1d7-4f1c-9835-ecdba4db5e3d" />
+<img width="1264" height="1086" alt="img_v3_0210k_deb009ef-4ddb-4bf4-8b1e-28dea4efb2cg" src="https://github.com/user-attachments/assets/fdccc5a3-5762-4d48-b30c-107c7a6f08cf" />
+<img width="1554" height="2579" alt="img_v3_0210k_95bba9e9-d9c5-4fdb-8e07-121be5de57dg" src="https://github.com/user-attachments/assets/b0cc76ba-54a9-4292-8878-078bc3ac7b59" />
+
+
 ## 功能特性
 
 - 单条/批量 ICP 备案查询
