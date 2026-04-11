@@ -1,8 +1,8 @@
 # ICP备案查询工具 (Go)
 
-ICP备案查询工具，支持域名、App、小程序、快应用的备案与违规查询。
+纯 Go 实现的工信部 ICP 备案查询工具，支持域名、App、小程序、快应用的备案查询与违规查询。支持 CLI / Web UI / MCP Server 三种运行模式。
 
-纯 Go 实现，零 CGo 依赖，支持 CLI / Web UI / MCP Server 三种运行模式。
+Inspired by [ICP_Query](https://github.com/HG-ha/ICP_Query)（Python 版）。
 
 ## 功能特性
 
