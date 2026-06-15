@@ -11,7 +11,11 @@ import (
 	"math/rand/v2"
 	"net"
 	"net/http"
+	"net/url"
+	"strings"
 	"time"
+
+	"golang.org/x/net/proxy"
 )
 
 const (
@@ -52,8 +56,10 @@ func (b *Beian) makeHTTPClient(proxy string) *http.Client {
 		IdleConnTimeout:     30 * time.Second,
 	}
 
-	// Bind to local IPv6 if available and no proxy
-	if proxy == "" && len(b.localIPv6Addresses) > 0 {
+	if proxy != "" {
+		b.configureProxy(transport, proxy)
+	} else if len(b.localIPv6Addresses) > 0 {
+		// Bind to local IPv6 if available and no proxy.
 		if ipv6 := b.getNextIPv6(); ipv6 != "" {
 			transport.DialContext = func(ctx context.Context, network, addr string) (net.Conn, error) {
 				d := net.Dialer{
@@ -70,6 +76,35 @@ func (b *Beian) makeHTTPClient(proxy string) *http.Client {
 	return &http.Client{
 		Transport: transport,
 		Timeout:   timeout,
+	}
+}
+
+func (b *Beian) configureProxy(transport *http.Transport, proxyAddr string) {
+	proxyURL, err := url.Parse(proxyAddr)
+	if err != nil {
+		slog.Warn("proxy URL parse failed", "proxy", proxyAddr, "error", err)
+		return
+	}
+
+	switch strings.ToLower(proxyURL.Scheme) {
+	case "http", "https":
+		transport.Proxy = http.ProxyURL(proxyURL)
+	case "socks5", "socks5h":
+		dialer, err := proxy.FromURL(proxyURL, proxy.Direct)
+		if err != nil {
+			slog.Warn("SOCKS5 proxy setup failed", "proxy", proxyAddr, "error", err)
+			return
+		}
+		contextDialer, ok := dialer.(proxy.ContextDialer)
+		if !ok {
+			slog.Warn("SOCKS5 proxy does not support context dialing", "proxy", proxyAddr)
+			return
+		}
+		transport.DialContext = func(ctx context.Context, network, addr string) (net.Conn, error) {
+			return contextDialer.DialContext(ctx, network, addr)
+		}
+	default:
+		slog.Warn("unsupported proxy scheme", "proxy", proxyAddr)
 	}
 }
 

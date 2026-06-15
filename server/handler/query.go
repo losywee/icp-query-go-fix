@@ -29,7 +29,6 @@ func (h *Handler) handleQuery(c *gin.Context) {
 		return
 	}
 
-
 	p := formatProxy(proxy)
 	normalTypes := map[string]bool{"web": true, "app": true, "mapp": true, "kapp": true}
 
@@ -102,7 +101,7 @@ func formatProxy(proxy string) string {
 	if proxy == "" {
 		return ""
 	}
-	if !strings.HasPrefix(proxy, "http://") && !strings.HasPrefix(proxy, "https://") {
+	if !strings.Contains(proxy, "://") {
 		return "http://" + proxy
 	}
 	return proxy
